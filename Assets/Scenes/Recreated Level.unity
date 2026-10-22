@@ -40794,7 +40794,6 @@ GameObject:
   - component: {fileID: 1366917813}
   - component: {fileID: 1366917812}
   - component: {fileID: 1366917814}
-  - component: {fileID: 1366917815}
   - component: {fileID: 1366917816}
   m_Layer: 0
   m_Name: Astro
@@ -40915,26 +40914,6 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
---- !u!114 &1366917815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366917810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f95458a6b4dbc3249af58aede0c0034f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AstroMovement
-  waypoints:
-  - {x: 1, y: -1}
-  - {x: 6, y: -1}
-  - {x: 6, y: -5}
-  - {x: 1, y: -5}
-  speed: 5
-  animator: {fileID: 1366917812}
-  audioSource: {fileID: 1366917816}
 --- !u!82 &1366917816
 AudioSource:
   m_ObjectHideFlags: 0
