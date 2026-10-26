@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -38,6 +37,74 @@ public class LevelGenerator : MonoBehaviour
         {2,2,2,2,2,1,5,3,3,0,4,0,0,0},
         {0,0,0,0,0,0,5,0,0,0,4,0,0,0},
     };
+
+
+    private int[,] fullMap;
+
+    private void Awake()
+    {
+        BuildFullMap();
+    }
+
+    void BuildFullMap()
+    {
+        int qRows = levelMap.GetLength(0);
+        int qCols = levelMap.GetLength(1);
+        int rows = qRows * 2 - 1;
+        int cols = qCols * 2;
+
+        fullMap = new int[rows, cols];
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                int qr = r < qRows ? r : rows - 1 - r;
+                int qc = c < qCols ? c : cols - 1 - c;
+                fullMap[r, c] = levelMap[qr, qc];
+            }
+        }
+    }
+
+    public int GetTile(Vector2Int cell)
+    {
+        int row = -cell.y;
+        int col = cell.x;
+
+        if (row < 0 || row >= fullMap.GetLength(0) || col < 0 || col >= fullMap.GetLength(1))
+            return -1;
+
+        return fullMap[row, col];
+    }
+
+    public void SetTile(Vector2Int cell, int value)
+    {
+        int row = -cell.y;
+        int col = cell.x;
+
+        if (row < 0 || row >= fullMap.GetLength(0) || col < 0 || col >= fullMap.GetLength(1))
+            return;
+
+        fullMap[row, col] = value;
+    }
+
+    public bool IsWalkable(Vector2Int cell, bool allowGhostWall = false)
+    {
+        int v = GetTile(cell);
+        if (v == 0 || v == 5 || v == 6) return true;
+        if (v == 8 && allowGhostWall) return true;
+        return false;
+    }
+
+    public Vector2Int WorldToCell(Vector3 position)
+    {
+        return new Vector2Int(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+    }
+
+    public Vector3 CellToWorld(Vector2Int cell)
+    {
+        return new Vector3(cell.x, cell.y, 0f);
+    }
 
     void Start()
     {

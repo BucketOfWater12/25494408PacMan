@@ -62088,7 +62088,7 @@ GameObject:
   - component: {fileID: 2000751463}
   - component: {fileID: 2000751462}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: EXITTEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62147,7 +62147,7 @@ MonoBehaviour:
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.3509268, g: 0.3584906, b: 0.31959775, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
