@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PacStudentController : MonoBehaviour
 {
@@ -8,10 +9,13 @@ public class PacStudentController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private AudioSource moveAudio;
     [SerializeField] private ParticleSystem dustParticles;
+    [SerializeField] private GameManager gameManager;
 
     [Header("Movement Audio")]
     [SerializeField] private AudioClip moveClip;
     [SerializeField] private AudioClip eatClip;
+    [SerializeField] private float movePitch = 1.5f;
+    [SerializeField] private float eatPitch = 1.0f;
 
     [Header("Movement")]
     [SerializeField] private float tilesPerSecond = 5f;
@@ -145,6 +149,7 @@ public class PacStudentController : MonoBehaviour
         if (moveAudio.clip != wanted)
         {
             moveAudio.clip = wanted;
+            moveAudio.pitch = (wanted == eatClip) ? eatPitch : movePitch;
             moveAudio.Play();
         }
 
@@ -152,5 +157,25 @@ public class PacStudentController : MonoBehaviour
         {
             moveAudio.Play();
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Pellet"))
+        {
+            EatPellet(other.gameObject, 10);
+        }
+
+        else if (other.CompareTag("PowerPellet"))
+        {
+            EatPellet(other.gameObject, 50);
+        }
+    }
+
+    void EatPellet(GameObject pellet, int points)
+    {
+        levelGenerator.SetTile(levelGenerator.WorldToCell(pellet.transform.position), 0);
+        Destroy(pellet);
+        gameManager.PelletEaten(points);
     }
 }

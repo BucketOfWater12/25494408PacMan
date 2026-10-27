@@ -12761,6 +12761,52 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &441850342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 441850344}
+  - component: {fileID: 441850343}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &441850343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441850342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67043e1fd5631b4da75ea0908155249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  hud: {fileID: 952327724}
+  levelGenerator: {fileID: 819081081}
+--- !u!4 &441850344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441850342}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 289.95483, y: 401.27402, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &443191068
 GameObject:
   m_ObjectHideFlags: 0
@@ -28155,6 +28201,8 @@ GameObject:
   m_Component:
   - component: {fileID: 907998716}
   - component: {fileID: 907998717}
+  - component: {fileID: 907998719}
+  - component: {fileID: 907998718}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -28195,9 +28243,75 @@ MonoBehaviour:
   animator: {fileID: 1366917812}
   moveAudio: {fileID: 1366917816}
   dustParticles: {fileID: 1187214997}
+  gameManager: {fileID: 441850343}
   moveClip: {fileID: 8300000, guid: b934224dec633ad4192eb2661502d3cc, type: 3}
   eatClip: {fileID: 8300000, guid: 881ca37e9ddd7ac43b762d10557c7df9, type: 3}
+  movePitch: 2
+  eatPitch: 1.2
   tilesPerSecond: 5
+--- !u!58 &907998718
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907998715}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.3
+--- !u!50 &907998719
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907998715}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &910644162
 GameObject:
   m_ObjectHideFlags: 0
@@ -29723,6 +29837,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb1f8e78f41a75449cd7dc0835d9241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDController
+  scoreText: {fileID: 1466827577}
+  lifeIcons:
+  - {fileID: 219573820}
+  - {fileID: 205165373}
+  - {fileID: 1926620027}
 --- !u!1 &956509201
 GameObject:
   m_ObjectHideFlags: 0
@@ -71500,3 +71619,4 @@ SceneRoots:
   - {fileID: 1182986213}
   - {fileID: 1065607613}
   - {fileID: 490617573}
+  - {fileID: 441850344}
