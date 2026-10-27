@@ -1,4 +1,5 @@
 using NUnit.Framework.Internal.Filters;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -17,6 +18,7 @@ public class PacStudentController : MonoBehaviour
     [SerializeField] private AudioClip eatClip;
     [SerializeField] private float movePitch = 1.5f;
     [SerializeField] private float eatPitch = 1.0f;
+    [SerializeField] private AudioClip cherryEatClip;
 
     [Header("Movement")]
     [SerializeField] private float tilesPerSecond = 5f;
@@ -185,6 +187,17 @@ public class PacStudentController : MonoBehaviour
         else if (other.CompareTag("PowerPellet"))
         {
             EatPellet(other.gameObject, 50);
+        }
+
+        else if (other.CompareTag("Cherry"))
+        {
+            Destroy(other.gameObject);
+            gameManager.AddScore(100);
+
+            if (sfxAudio != null && cherryEatClip != null)
+            {
+                sfxAudio.PlayOneShot(cherryEatClip);
+            }
         }
     }
 
