@@ -28,7 +28,14 @@ public class PacStudentController : MonoBehaviour
     [SerializeField] private AudioSource sfxAudio;
     [SerializeField] private AudioClip wallBumpClip;
 
+    [Header("Death")]
+    [SerializeField] private ParticleSystem deathParticles;
+    [SerializeField] private AudioClip deathClip;
+    [SerializeField] private AudioClip ghostEatClip;
+
     private bool wasMoving;
+
+    private Vector2Int StartCell;
 
     private Vector2Int lastInput = Vector2Int.zero;
     private Vector2Int currentInput = Vector2Int.zero;
@@ -44,6 +51,7 @@ public class PacStudentController : MonoBehaviour
     void Start()
     {
         currentCell = levelGenerator.WorldToCell(transform.position);
+        StartCell = currentCell;
         transform.position = levelGenerator.CellToWorld(currentCell);
 
         lerpDuration = 1f / tilesPerSecond;
@@ -54,6 +62,7 @@ public class PacStudentController : MonoBehaviour
 
     void Update()
     {
+        if (!gameManager.CanMove) return;
         GatherInput();
 
         if (isLerping)
@@ -179,6 +188,8 @@ public class PacStudentController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!gameManager.CanMove) return;
+
         if (other.CompareTag("Pellet"))
         {
             EatPellet(other.gameObject, 10);
@@ -198,6 +209,22 @@ public class PacStudentController : MonoBehaviour
             if (sfxAudio != null && cherryEatClip != null)
             {
                 sfxAudio.PlayOneShot(cherryEatClip);
+            }
+        }
+
+        else if (other.CompareTag("Ghost"))
+        {
+            GhostController ghost = other.GetComponent<GhostController>();
+
+            if (ghost.State == GhostState.Normal)
+            {
+                gameManager.PacStudentDied();
+            }
+
+            else if (ghost.State == GhostState.Scared || ghost.State == GhostState.Recovering)
+            {
+                if (sfxAudio != null && ghostEatClip != null) sfxAudio.PlayOneShot(ghostEatClip);
+                gameManager.GhostEaten(ghost);
             }
         }
     }
@@ -237,5 +264,38 @@ public class PacStudentController : MonoBehaviour
             currentCell = new Vector2Int (destinationX, currentCell.y);
             transform.position = levelGenerator.CellToWorld(currentCell);
         }
+    }
+
+    public void PlayDeath()
+    {
+        isLerping = false;
+        wasMoving = false;
+        SetMovingEffects(false);
+
+        animator.speed = 1f;
+        animator.SetBool("Dead", true);
+
+        if (deathParticles != null)
+        {
+            deathParticles.transform.position = transform.position;
+            deathParticles.Play();
+        }
+
+        if (sfxAudio != null && deathClip != null) sfxAudio.PlayOneShot(deathClip);
+
+    }
+
+    public void Respawn()
+    {
+        if (sfxAudio != null) sfxAudio.Stop();
+        currentCell = StartCell;
+        transform.position = levelGenerator.CellToWorld(StartCell);
+
+        lastInput = Vector2Int.zero;
+        currentInput = Vector2Int.zero;
+
+        animator.SetBool("Dead", false);
+        SetFacing(Vector2Int.right);
+        animator.speed = 0f;
     }
 }
