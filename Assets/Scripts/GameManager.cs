@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
 
@@ -10,11 +12,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PacStudentController pacStudent;
     [SerializeField] private float deathSequenceDuration = 2f;
     [SerializeField] private float deadGhostDuration = 3f;
+    [SerializeField] private string levelKey = "Level1";
+    [SerializeField] private float gameOverDuration = 3f;
 
     public int Score { get; private set; }
     public int Lives { get; private set; } = 3;
     public bool CanMove { get; private set; } = true;
-
+    private bool isGameOver;
     private int pelletsRemaining;
 
     private const float ScaredDuration = 10f;
@@ -49,12 +53,14 @@ public class GameManager : MonoBehaviour
 
         if (pelletsRemaining <= 0)
         {
-            //Gameover
+            GameOver();
         }
     }
 
     void Update()
     {
+        if (isGameOver) return;
+
         if (timerRunning)
         {
             gameTime += Time.deltaTime;
@@ -145,6 +151,7 @@ public class GameManager : MonoBehaviour
 
         if (Lives <= 0)
         {
+            GameOver();
             yield break;
         }
 
@@ -199,5 +206,44 @@ public class GameManager : MonoBehaviour
         audioManager.PlayNormal();
         CanMove = true;
         timerRunning = true;
+    }
+
+    void GameOver()
+    {
+        if (isGameOver) return;
+        isGameOver = true;
+
+        CanMove = false;
+        timerRunning = false;
+
+        hud.ShowGameOver();
+        audioManager.StopMusic();
+        SaveHighScore();
+
+        StartCoroutine(ReturnToStart());
+        pacStudent.StopMovement();
+    }
+
+    void SaveHighScore()
+    {
+        string scoreKey = levelKey + "_HighScore";
+        string timeKey = levelKey + "_BestTime";
+
+        bool hasRecord = PlayerPrefs.HasKey(scoreKey);
+        int bestScore = PlayerPrefs.GetInt(scoreKey, 0);
+        float bestTime = PlayerPrefs.GetFloat(timeKey, float.MaxValue);
+
+        if(!hasRecord || Score > bestScore || (Score == bestScore && gameTime < bestTime))
+        {
+            PlayerPrefs.SetInt(scoreKey, Score);
+            PlayerPrefs.SetFloat(timeKey, gameTime);
+            PlayerPrefs.Save();
+        }
+    }
+
+    IEnumerator ReturnToStart()
+    {
+        yield return new WaitForSeconds(gameOverDuration);
+        SceneManager.LoadScene("StartScene");
     }
 }

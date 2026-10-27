@@ -298,4 +298,11 @@ public class PacStudentController : MonoBehaviour
         SetFacing(Vector2Int.right);
         animator.speed = 0f;
     }
+
+    public void StopMovement()
+    {
+        isLerping = false;
+        wasMoving = false;
+        SetMovingEffects(false);
+    }
 }
