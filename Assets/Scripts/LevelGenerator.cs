@@ -106,6 +106,8 @@ public class LevelGenerator : MonoBehaviour
         return new Vector3(cell.x, cell.y, 0f);
     }
 
+    public int Coloumns => fullMap.GetLength(1);
+
     void Start()
     {
         Destroy(topHalf);
@@ -270,5 +272,18 @@ public class LevelGenerator : MonoBehaviour
             default:
                 return Quaternion.identity;
         }
+    }
+
+    public int CountPellets()
+    {
+        int count = 0;
+        for (int r = 0; r < fullMap.GetLength(0); r++)
+        {
+            for (int c = 0; c < fullMap.GetLength(1); c++)
+            {
+                if (fullMap[r, c] == 5 || fullMap[r, c] == 6) count ++;
+            }
+        }
+        return count;
     }
 }

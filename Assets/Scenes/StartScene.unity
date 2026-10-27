@@ -384,6 +384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789d00dc855ec644aade9c5d616a1d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMenuController
+  level1HighScoreText: {fileID: 2108036768}
+  level1TimeText: {fileID: 589772503}
+  level2HighScoreText: {fileID: 50018392}
+  level2TimeText: {fileID: 1946504006}
 --- !u!4 &457111679
 Transform:
   m_ObjectHideFlags: 0
