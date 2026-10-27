@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal.Filters;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -19,6 +20,13 @@ public class PacStudentController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float tilesPerSecond = 5f;
+
+    [Header("WallBump")]
+    [SerializeField] private ParticleSystem wallBumpParticles;
+    [SerializeField] private AudioSource sfxAudio;
+    [SerializeField] private AudioClip wallBumpClip;
+
+    private bool wasMoving;
 
     private Vector2Int lastInput = Vector2Int.zero;
     private Vector2Int currentInput = Vector2Int.zero;
@@ -80,6 +88,12 @@ public class PacStudentController : MonoBehaviour
 
         else
         {
+            if (wasMoving)
+            {
+                WallBump(currentInput);
+                wasMoving = false;
+            }
+
             SetMovingEffects(false);
         }
     }
@@ -91,6 +105,7 @@ public class PacStudentController : MonoBehaviour
         lerpEnd = levelGenerator.CellToWorld(targetCell);
         lerpStartTime = Time.time;
         isLerping = true;
+        wasMoving = true;
 
         SetFacing(currentInput);
         SetMovingEffects(true);
@@ -177,5 +192,21 @@ public class PacStudentController : MonoBehaviour
         levelGenerator.SetTile(levelGenerator.WorldToCell(pellet.transform.position), 0);
         Destroy(pellet);
         gameManager.PelletEaten(points);
+    }
+
+    void WallBump(Vector2Int direction)
+    {
+        Vector3 contactPoint = levelGenerator.CellToWorld(currentCell) + new Vector3(direction.x, direction.y, 0f) * 0.5f;
+
+        if (wallBumpParticles != null)
+        {
+            wallBumpParticles.transform.position = contactPoint;
+            wallBumpParticles.Play();
+        }
+
+        if (sfxAudio != null && wallBumpClip != null)
+        {
+            sfxAudio.PlayOneShot(wallBumpClip, 1.5f);
+        }
     }
 }
