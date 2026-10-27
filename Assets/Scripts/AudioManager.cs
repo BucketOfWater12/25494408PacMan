@@ -9,13 +9,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip ghostScaredMusic;
     [SerializeField] private AudioClip ghostDeadMusic;
 
-    [SerializeField] private float introLength = 2.82f;
-    void Start()
-    {
-        PlayIntro();
-        Invoke(nameof(PlayNormal), Mathf.Min(introMusic.length, introLength));
-    }
-
     public void PlayIntro()
     {
         PlayClip(introMusic, false);

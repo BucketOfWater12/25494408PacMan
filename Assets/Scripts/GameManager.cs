@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     private const float RecoveringAt = 3f;
     private float scaredTimer;
 
+    private float gameTime;
+    private bool timerRunning;
+
 
     public GhostState GlobalGhostState { get; private set; } = GhostState.Normal;
     void Start()
@@ -29,6 +32,8 @@ public class GameManager : MonoBehaviour
 
         hud.UpdateScore(Score);
         hud.UpdateLives(Lives);
+        hud.UpdateGameTimer(0f);
+        StartCoroutine(RoundStart());
     }
 
     public void AddScore(int amount)
@@ -50,6 +55,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (timerRunning)
+        {
+            gameTime += Time.deltaTime;
+            hud.UpdateGameTimer(gameTime);
+        }
+
         if (GlobalGhostState == GhostState.Normal)
         {
             return;
@@ -169,5 +180,24 @@ public class GameManager : MonoBehaviour
             ghost.SetState(GlobalGhostState);
             UpdateMusic();
         }
+    }
+
+    IEnumerator RoundStart()
+    {
+        CanMove = false;
+        hud.ShowCountdown(true);
+        audioManager.PlayIntro();
+
+        string[] steps = { "3", "2", "1", "GO!" };
+        foreach (string step in steps)
+        {
+            hud.SetCountdownText(step);
+            yield return new WaitForSeconds(1f);
+        }
+
+        hud.ShowCountdown(false);
+        audioManager.PlayNormal();
+        CanMove = true;
+        timerRunning = true;
     }
 }

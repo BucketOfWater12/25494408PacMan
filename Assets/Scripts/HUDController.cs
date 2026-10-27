@@ -9,6 +9,9 @@ public class HUDController : MonoBehaviour
     [SerializeField] private GameObject[] lifeIcons;
     [SerializeField] private GameObject scaredTimerGroup;
     [SerializeField] private TMP_Text scaredTimerText;
+    [SerializeField] private GameObject countdownOverlay;
+    [SerializeField] private TMP_Text countdownText;
+    [SerializeField] private TMP_Text gamerTimerText;
 
     public void UpdateScore(int score)
     {
@@ -33,9 +36,27 @@ public class HUDController : MonoBehaviour
         scaredTimerText.text = secondsLeft.ToString();
     }
 
-
     public void ExitToStart()
     {
         SceneManager.LoadScene("StartScene");
+    }
+
+    public void ShowCountdown(bool show)
+    {
+        countdownOverlay.SetActive(show);
+    }
+
+    public void SetCountdownText(string text)
+    {
+        countdownText.text = text;
+    }
+
+    public void UpdateGameTimer(float seconds)
+    {
+        int minutes = (int)(seconds / 60f);
+        int secs = (int)(seconds % 60f);
+        int hundredths = (int)(seconds * 100f) % 100;
+
+        gamerTimerText.text = $"{minutes:00}:{secs:00}:{hundredths:00}";
     }
 }
