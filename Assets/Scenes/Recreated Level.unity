@@ -12805,6 +12805,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   hud: {fileID: 952327724}
   levelGenerator: {fileID: 819081081}
+  ghosts:
+  - {fileID: 1758178924}
+  - {fileID: 240036039}
+  - {fileID: 553341789}
+  - {fileID: 1610990431}
+  audioManager: {fileID: 1286323353}
 --- !u!4 &441850344
 Transform:
   m_ObjectHideFlags: 0
@@ -29971,6 +29977,8 @@ MonoBehaviour:
   - {fileID: 219573820}
   - {fileID: 205165373}
   - {fileID: 1926620027}
+  scaredTimerGroup: {fileID: 933679458}
+  scaredTimerText: {fileID: 1062411761}
 --- !u!1 &956509201
 GameObject:
   m_ObjectHideFlags: 0
@@ -45277,6 +45285,9 @@ MonoBehaviour:
   audioSource: {fileID: 1286323354}
   introMusic: {fileID: 8300000, guid: 45de4aef7119a50439a23bbcb90a2aea, type: 3}
   ghostNormalMusic: {fileID: 8300000, guid: ea2ba78d5350c054e9c746dcf5c00054, type: 3}
+  ghostScaredMusic: {fileID: 8300000, guid: fbb30b83d7f830b41a70e374628b62d9, type: 3}
+  ghostDeadMusic: {fileID: 8300000, guid: 09a4bd246b2a2d44d864a65635a47eb8, type: 3}
+  introLength: 2.82
 --- !u!82 &1286323354
 AudioSource:
   m_ObjectHideFlags: 0

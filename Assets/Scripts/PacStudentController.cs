@@ -187,6 +187,7 @@ public class PacStudentController : MonoBehaviour
         else if (other.CompareTag("PowerPellet"))
         {
             EatPellet(other.gameObject, 50);
+            gameManager.PowerPelletEaten();
         }
 
         else if (other.CompareTag("Cherry"))

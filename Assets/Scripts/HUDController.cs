@@ -7,6 +7,8 @@ public class HUDController : MonoBehaviour
 
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private GameObject[] lifeIcons;
+    [SerializeField] private GameObject scaredTimerGroup;
+    [SerializeField] private TMP_Text scaredTimerText;
 
     public void UpdateScore(int score)
     {
@@ -19,6 +21,16 @@ public class HUDController : MonoBehaviour
         {
             lifeIcons[i].SetActive(i < lives);
         }
+    }
+
+    public void ShowScaredTimer(bool show)
+    {
+        scaredTimerGroup.SetActive(show);
+    }
+
+    public void UpdateScaredTimer(int secondsLeft)
+    {
+        scaredTimerText.text = secondsLeft.ToString();
     }
 
 

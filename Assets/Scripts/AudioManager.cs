@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -5,19 +6,48 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip introMusic;
     [SerializeField] private AudioClip ghostNormalMusic;
+    [SerializeField] private AudioClip ghostScaredMusic;
+    [SerializeField] private AudioClip ghostDeadMusic;
+
+    [SerializeField] private float introLength = 2.82f;
     void Start()
     {
-        audioSource.clip = introMusic;
-        audioSource.loop = false;
-        audioSource.Play();
-
-        float delay = Mathf.Min(introMusic.length, 2.82f);
-        Invoke(nameof(PlayGhostNormalMusic), delay);
+        PlayIntro();
+        Invoke(nameof(PlayNormal), Mathf.Min(introMusic.length, introLength));
     }
-    void PlayGhostNormalMusic()
+
+    public void PlayIntro()
     {
-        audioSource.clip = ghostNormalMusic;
-        audioSource.loop = true;
+        PlayClip(introMusic, false);
+    }
+
+    public void PlayNormal()
+    {
+        PlayClip(ghostNormalMusic, true);
+    }
+
+    public void PlayScared()
+    {
+        PlayClip(ghostScaredMusic, true);
+    }
+
+    public void PlayDead()
+    {
+        PlayClip(ghostDeadMusic, true);
+    }
+
+    public void StopMusic()
+    {
+        CancelInvoke();
+        audioSource.Stop();
+    }
+
+    void PlayClip(AudioClip clip, bool loop)
+    {
+        if (audioSource.clip == clip && audioSource.isPlaying) return;
+
+        audioSource.clip = clip;
+        audioSource.loop = loop;
         audioSource.Play();
     }
 }
