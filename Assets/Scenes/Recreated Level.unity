@@ -7320,6 +7320,7 @@ GameObject:
   - component: {fileID: 240036036}
   - component: {fileID: 240036037}
   - component: {fileID: 240036038}
+  - component: {fileID: 240036039}
   m_Layer: 0
   m_Name: Gazza
   m_TagString: Untagged
@@ -7424,6 +7425,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &240036039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240036035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c649e54607a452845822d6dac8fec0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostController
 --- !u!1 &241170253
 GameObject:
   m_ObjectHideFlags: 0
@@ -15905,6 +15918,7 @@ GameObject:
   - component: {fileID: 553341786}
   - component: {fileID: 553341787}
   - component: {fileID: 553341788}
+  - component: {fileID: 553341789}
   m_Layer: 0
   m_Name: Dazza
   m_TagString: Untagged
@@ -16009,6 +16023,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &553341789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553341785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c649e54607a452845822d6dac8fec0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostController
 --- !u!1 &562289204
 GameObject:
   m_ObjectHideFlags: 0
@@ -28250,6 +28276,7 @@ MonoBehaviour:
   eatClip: {fileID: 8300000, guid: 881ca37e9ddd7ac43b762d10557c7df9, type: 3}
   movePitch: 2
   eatPitch: 1.2
+  cherryEatClip: {fileID: 8300000, guid: 570eab7da67b5374193941b26be14654, type: 3}
   tilesPerSecond: 5
   wallBumpParticles: {fileID: 1805493600}
   sfxAudio: {fileID: 907998720}
@@ -55188,6 +55215,7 @@ GameObject:
   - component: {fileID: 1610990428}
   - component: {fileID: 1610990429}
   - component: {fileID: 1610990430}
+  - component: {fileID: 1610990431}
   m_Layer: 0
   m_Name: Bill
   m_TagString: Untagged
@@ -55292,6 +55320,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1610990431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610990427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c649e54607a452845822d6dac8fec0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostController
 --- !u!1 &1614183294
 GameObject:
   m_ObjectHideFlags: 0
@@ -59760,6 +59800,7 @@ GameObject:
   - component: {fileID: 1758178921}
   - component: {fileID: 1758178923}
   - component: {fileID: 1758178922}
+  - component: {fileID: 1758178924}
   m_Layer: 0
   m_Name: Razza
   m_TagString: Untagged
@@ -59864,6 +59905,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1758178924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758178920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c649e54607a452845822d6dac8fec0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostController
 --- !u!1 &1761320459
 GameObject:
   m_ObjectHideFlags: 0
