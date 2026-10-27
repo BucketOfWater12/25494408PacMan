@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
 
@@ -11,7 +10,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private PacStudentController pacStudent;
     [SerializeField] private float deathSequenceDuration = 2f;
-    [SerializeField] private float deadGhostDuration = 3f;
     [SerializeField] private string levelKey = "Level1";
     [SerializeField] private float gameOverDuration = 3f;
 
@@ -175,18 +173,12 @@ public class GameManager : MonoBehaviour
         ghost.SetState(GhostState.Dead);
         AddScore(300);
         UpdateMusic();
-        StartCoroutine(ReviveGhost(ghost));
     }
 
-    IEnumerator ReviveGhost(GhostController ghost)
+    public void GhostReturnedToSpawn(GhostController ghost)
     {
-        yield return new WaitForSeconds(deadGhostDuration);
-
-        if (ghost.State == GhostState.Dead)
-        {
-            ghost.SetState(GlobalGhostState);
-            UpdateMusic();
-        }
+        ghost.SetState(GlobalGhostState);
+        UpdateMusic();
     }
 
     IEnumerator RoundStart()
