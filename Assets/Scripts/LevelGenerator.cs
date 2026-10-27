@@ -106,6 +106,8 @@ public class LevelGenerator : MonoBehaviour
         return new Vector3(cell.x, cell.y, 0f);
     }
 
+    public int Coloumns => fullMap.GetLength(1);
+
     void Start()
     {
         Destroy(topHalf);

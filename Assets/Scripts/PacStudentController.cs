@@ -121,6 +121,7 @@ public class PacStudentController : MonoBehaviour
             transform.position = lerpEnd;
             currentCell = targetCell;
             isLerping = false;
+            CheckTeleport();
         }
 
         else
@@ -207,6 +208,20 @@ public class PacStudentController : MonoBehaviour
         if (sfxAudio != null && wallBumpClip != null)
         {
             sfxAudio.PlayOneShot(wallBumpClip, 1.5f);
+        }
+    }
+
+    void CheckTeleport()
+    {
+        Vector2Int next = currentCell + currentInput;
+
+        if (levelGenerator.GetTile(next) != -1) return;
+
+        if (next.x < 0 || next.x >= levelGenerator.Coloumns)
+        {
+            int destinationX = (next.x < 0) ? levelGenerator.Coloumns - 1 : 0;
+            currentCell = new Vector2Int (destinationX, currentCell.y);
+            transform.position = levelGenerator.CellToWorld(currentCell);
         }
     }
 }
